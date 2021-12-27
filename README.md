@@ -10,4 +10,4 @@ interview_submission_of_caw_Studios
 
 ## django migrations might take few minutes to take hold to up the docker compose so suggestion is to run the postman apis after few minutes 
 
-
+## I suggest to view beside urls directly in browser http://127.0.0.1:8000/bookmyshow_apis/login && http://127.0.0.1:8000/bookmyshow_apis/booktickets1
