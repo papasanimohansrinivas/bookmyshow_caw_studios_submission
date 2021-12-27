@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - production_db_volume:/var/lib/mysql
+    env_file:
+      - .live.env
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8080:80"
+
+  web:
+    build: .
+    command: >
+      sh -c "python manage.py makemigrations  &&
+             python manage.py migrate  &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./bookmyshow_project:/code
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    depends_on:
+      - db
+
+
+volumes:
+  production_db_volume:
